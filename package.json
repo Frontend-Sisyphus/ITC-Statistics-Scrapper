@@ -1,18 +1,41 @@
 {
   "name": "itc-statistics-scrapper",
-  "version": "1.0.0",
-  "description": "Lightweight Node.js telemetry SDK for ITC Dashboard (Gjallarhorn): heartbeat, CPU/RAM, RPS, latency, incidents",
+  "version": "1.1.0",
+  "description": "Telemetry SDK for ITC Dashboard: Node.js servers and any browser website (heartbeat, metrics, incidents)",
   "main": "index.js",
+  "browser": "browser.js",
   "types": "index.d.ts",
+  "unpkg": "browser.js",
+  "jsdelivr": "browser.js",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "browser": "./browser.js",
+      "require": "./index.js",
+      "default": "./index.js"
+    },
+    "./browser": {
+      "types": "./browser.d.ts",
+      "default": "./browser.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frontend-Sisyphus/ITC-Statistics-Scrapper.git"
+  },
   "files": [
     "index.js",
     "index.d.ts",
+    "browser.js",
+    "browser.d.ts",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "prepublishOnly": "node -e \"require('./index.js')\"",
-    "test": "node ../test_send_telemetry.js"
+    "prepublishOnly": "node -e \"require('./index.js'); require('./browser.js')\"",
+    "test": "node -e \"require('./index.js'); require('./browser.js'); console.log('load ok')\"",
+    "docs": "npx --yes serve docs -p 5173"
   },
   "engines": {
     "node": ">=16"
@@ -23,7 +46,7 @@
     "heartbeat",
     "sre",
     "itc",
-    "gjallarhorn",
+    "browser",
     "express",
     "nextjs"
   ],

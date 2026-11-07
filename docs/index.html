@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="itc-statistics-scrapper — лёгкий Node.js SDK телеметрии для ITC Dashboard: heartbeat, CPU/RAM, RPS, latency и инциденты."
+    />
+    <meta name="theme-color" content="#151718" />
+    <title>itc-statistics-scrapper · ИТС</title>
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("itc-theme");
+          if (saved === "light" || saved === "dark") {
+            document.documentElement.setAttribute("data-theme", saved);
+          } else {
+            var dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            document.documentElement.setAttribute(
+              "data-theme",
+              dark ? "dark" : "light"
+            );
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="wrap nav">
+        <a class="nav__brand" href="#top">
+          <span class="nav__name">itc-statistics-scrapper</span>
+          <span class="nav__tag">ITC · Node.js SDK</span>
+        </a>
+
+        <div class="nav__links">
+          <a class="nav__link" href="#purpose">Для чего</a>
+          <a class="nav__link" href="#metrics">Метрики</a>
+          <a class="nav__link" href="#install">Установка</a>
+          <a
+            class="nav__link"
+            href="https://github.com/Frontend-Sisyphus/ITC-Statistics-Scrapper"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >
+          <button
+            class="theme-btn"
+            type="button"
+            id="themeToggle"
+            aria-label="Переключить тему"
+            title="Тема"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M12 3v2M12 19v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M3 12h2M19 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="wrap hero" aria-labelledby="hero-brand">
+          <div class="hero__content">
+            <p class="pill">npm · CDN · любой сайт</p>
+            <h1 class="hero__brand" id="hero-brand">itc-statistics-scrapper</h1>
+            <p class="hero__headline">
+              SDK телеметрии для ITC Dashboard — Node.js и браузер
+            </p>
+            <p class="hero__lead">
+              Подключается к Express/Next.js или в любой HTML-сайт через
+              <code>&lt;script&gt;</code>. Heartbeat, метрики и инциденты уходят
+              в панель мониторинга ИТС.
+            </p>
+            <div class="hero__cta">
+              <a class="btn btn--primary" href="#install">Установить пакет</a>
+              <a
+                class="btn btn--ghost"
+                href="https://github.com/Frontend-Sisyphus/ITC-Statistics-Scrapper"
+                target="_blank"
+                rel="noreferrer"
+                >Открыть на GitHub</a
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="wrap section" id="purpose" aria-labelledby="purpose-title">
+          <div class="section__head">
+            <h2 class="section__title" id="purpose-title">Для чего</h2>
+            <span class="section__rule" aria-hidden="true"></span>
+          </div>
+          <div class="purpose">
+            <div class="purpose__copy">
+              <h2>Телеметрия без лишнего шума</h2>
+              <p>
+                <strong>itc-statistics-scrapper</strong> — лёгкий клиент без
+                внешних зависимостей. Работает на сервере и в браузере: любой
+                сайт становится видимым для ITC Dashboard.
+              </p>
+              <p>
+                Раз в заданный интервал SDK отправляет телеметрию на
+                <code>/api/monitoring/telemetry</code>. Если сигнал пропал —
+                статус проекта меняется. Ошибки JS на клиенте или на сервере
+                можно слать как инциденты автоматически.
+              </p>
+              <div class="stack" aria-label="Стек">
+                <span class="chip">Любой сайт</span>
+                <span class="chip">Node.js ≥ 16</span>
+                <span class="chip">CDN / npm</span>
+                <span class="chip">0 зависимостей</span>
+              </div>
+            </div>
+
+            <aside class="signal-panel" aria-label="Пример сигнала">
+              <p class="signal-panel__label">Пример сигнала</p>
+              <div class="signal-row">
+                <span class="signal-row__name">CPU</span>
+                <div class="signal-row__bar">
+                  <div class="signal-row__fill" style="width: 42%"></div>
+                </div>
+                <span class="signal-row__val">42%</span>
+              </div>
+              <div class="signal-row">
+                <span class="signal-row__name">RAM</span>
+                <div class="signal-row__bar">
+                  <div class="signal-row__fill" style="width: 61%"></div>
+                </div>
+                <span class="signal-row__val">61%</span>
+              </div>
+              <div class="signal-row">
+                <span class="signal-row__name">RPS</span>
+                <div class="signal-row__bar">
+                  <div class="signal-row__fill" style="width: 28%"></div>
+                </div>
+                <span class="signal-row__val">12.4</span>
+              </div>
+              <div class="signal-row">
+                <span class="signal-row__name">Latency</span>
+                <div class="signal-row__bar">
+                  <div class="signal-row__fill" style="width: 18%"></div>
+                </div>
+                <span class="signal-row__val">45 ms</span>
+              </div>
+              <div class="signal-row">
+                <span class="signal-row__name">Uptime</span>
+                <div class="signal-row__bar">
+                  <div class="signal-row__fill" style="width: 99%"></div>
+                </div>
+                <span class="signal-row__val">99.9%</span>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="wrap section" id="metrics" aria-labelledby="metrics-title">
+          <div class="section__head">
+            <h2 class="section__title" id="metrics-title">Что собирает</h2>
+            <span class="section__rule" aria-hidden="true"></span>
+          </div>
+          <p class="section__intro">
+            Один middleware и фоновый heartbeat — и на дашборде появляются
+            метрики, которые нужны для мониторинга сервисов ИТС.
+          </p>
+          <div class="metrics">
+            <article class="metric">
+              <h3>CPU &amp; RAM</h3>
+              <p>
+                Загрузка ядер и память хоста — видно, когда сервис начинает
+                работать тяжелее обычного.
+              </p>
+            </article>
+            <article class="metric">
+              <h3>Heartbeat</h3>
+              <p>
+                Регулярный сбор данных о доступности. Нет тика — статус на панели
+                уходит в сбой.
+              </p>
+            </article>
+            <article class="metric">
+              <h3>RPS &amp; latency</h3>
+              <p>
+                Запросы в секунду, среднее и p95 времени ответа между тиками.
+              </p>
+            </article>
+            <article class="metric">
+              <h3>HTTP-коды</h3>
+              <p>
+                Распределение 2xx / 3xx / 4xx / 5xx — рост ошибок виден без
+                копания в логах.
+              </p>
+            </article>
+            <article class="metric">
+              <h3>Посетители</h3>
+              <p>
+                Уникальные IP и суточные визиты — базовая картина трафика
+                сервиса.
+              </p>
+            </article>
+            <article class="metric">
+              <h3>Инциденты</h3>
+              <p>
+                Автоперехват uncaughtException / unhandledRejection и ручной
+                <code>reportIncident</code>.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="wrap section" id="install" aria-labelledby="install-title">
+          <div class="section__head">
+            <h2 class="section__title" id="install-title">Быстрый старт</h2>
+            <span class="section__rule" aria-hidden="true"></span>
+          </div>
+          <div class="install">
+            <div class="install__copy">
+              <h2>Вставьте скрипт и сайт сразу начнет мониториться</h2>
+              <p>
+                Для любого HTML-сайта достаточно CDN. Для Express / Next.js —
+                npm и middleware. Передайте <code>projectId</code> и адрес
+                ITC Dashboard.
+              </p>
+              <p>
+                В браузере дашборд должен разрешать CORS на
+                <code>POST /api/monitoring/telemetry</code>.
+              </p>
+              <a
+                class="btn btn--ghost"
+                href="https://www.npmjs.com/package/itc-statistics-scrapper"
+                target="_blank"
+                rel="noreferrer"
+                >Страница на npm</a
+              >
+            </div>
+
+            <div class="code" data-copy-root>
+              <div class="code__bar">
+                <span class="code__label">browser · cdn</span>
+                <button class="copy-btn" type="button" data-copy>
+                  Копировать
+                </button>
+              </div>
+              <pre><code id="installSnippet"><span class="tok-cmt">&lt;!-- любой сайт --&gt;</span>
+&lt;script src=<span class="tok-str">"https://unpkg.com/itc-statistics-scrapper/browser.js"</span>&gt;&lt;/script&gt;
+&lt;script&gt;
+  ItcStatistics.initItcStatistics({
+    projectId: <span class="tok-str">'my-site'</span>,
+    dashboardUrl: <span class="tok-str">'http://localhost:3000'</span>,
+  });
+&lt;/script&gt;</code></pre>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="wrap footer">
+        <div class="footer__inner">
+          <div class="footer__brand">itc-statistics-scrapper</div>
+          <p class="footer__meta">
+            <a href="https://www.npmjs.com/package/itc-statistics-scrapper"
+              >npm</a
+            >
+            · MIT ·
+            <a
+              href="https://github.com/Frontend-Sisyphus/ITC-Statistics-Scrapper"
+              target="_blank"
+              rel="noreferrer"
+              >GitHub</a
+            >
+            · сообщество ИТС
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var toggle = document.getElementById("themeToggle");
+        if (toggle) {
+          toggle.addEventListener("click", function () {
+            var next =
+              root.getAttribute("data-theme") === "light" ? "dark" : "light";
+            root.setAttribute("data-theme", next);
+            try {
+              localStorage.setItem("itc-theme", next);
+            } catch (e) {}
+          });
+        }
+
+        var btn = document.querySelector("[data-copy]");
+        var snippet = document.getElementById("installSnippet");
+        if (btn && snippet) {
+          btn.addEventListener("click", async function () {
+            var text = snippet.innerText.replace(/\u00a0/g, " ");
+            try {
+              await navigator.clipboard.writeText(text);
+              btn.textContent = "Скопировано";
+              btn.classList.add("is-copied");
+              setTimeout(function () {
+                btn.textContent = "Копировать";
+                btn.classList.remove("is-copied");
+              }, 1600);
+            } catch (e) {
+              btn.textContent = "Не удалось";
+            }
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

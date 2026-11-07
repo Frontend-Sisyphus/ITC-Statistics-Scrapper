@@ -287,7 +287,14 @@ function initGjallarhorn(config) {
   return client;
 }
 
+/** Alias: удобное имя пакета для Node-интеграций */
+function initItcStatistics(config) {
+  return initGjallarhorn(config);
+}
+
 module.exports = {
   GjallarhornClient,
+  ItcStatisticsClient: GjallarhornClient,
   initGjallarhorn,
+  initItcStatistics,
 };

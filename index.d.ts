@@ -9,6 +9,8 @@ export interface GjallarhornConfig {
   autoCatchErrors?: boolean;
 }
 
+export type ItcStatisticsConfig = GjallarhornConfig;
+
 export interface IncidentReport {
   title: string;
   severity?: "critical" | "warning" | "minor";
@@ -24,4 +26,7 @@ export class GjallarhornClient {
   sendTick(): Promise<void>;
 }
 
+export { GjallarhornClient as ItcStatisticsClient };
+
 export function initGjallarhorn(config: GjallarhornConfig): GjallarhornClient;
+export function initItcStatistics(config: ItcStatisticsConfig): GjallarhornClient;
