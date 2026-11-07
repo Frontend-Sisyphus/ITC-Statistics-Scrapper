@@ -1,0 +1,35 @@
+{
+  "name": "itc-statistics-scrapper",
+  "version": "1.0.0",
+  "description": "Lightweight Node.js telemetry SDK for ITC Dashboard (Gjallarhorn): heartbeat, CPU/RAM, RPS, latency, incidents",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "prepublishOnly": "node -e \"require('./index.js')\"",
+    "test": "node ../test_send_telemetry.js"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "keywords": [
+    "monitoring",
+    "telemetry",
+    "heartbeat",
+    "sre",
+    "itc",
+    "gjallarhorn",
+    "express",
+    "nextjs"
+  ],
+  "author": "ITC Dev Team",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
