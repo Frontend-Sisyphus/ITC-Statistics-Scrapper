@@ -1,0 +1,13 @@
+.git
+.idea
+.gigaide
+.vercel
+node_modules
+*.tgz
+*.log
+index.js
+index.d.ts
+browser.js
+browser.d.ts
+LICENSE
+package-lock.json

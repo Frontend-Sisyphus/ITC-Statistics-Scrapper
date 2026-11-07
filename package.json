@@ -35,7 +35,8 @@
   "scripts": {
     "prepublishOnly": "node -e \"require('./index.js'); require('./browser.js')\"",
     "test": "node -e \"require('./index.js'); require('./browser.js'); console.log('load ok')\"",
-    "docs": "npx --yes serve docs -p 5173"
+    "docs": "npx --yes serve docs -p 5173",
+    "deploy:docs": "npx --yes vercel --prod"
   },
   "engines": {
     "node": ">=16"

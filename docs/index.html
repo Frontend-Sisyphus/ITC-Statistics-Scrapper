@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="itc-statistics-scrapper — лёгкий Node.js SDK телеметрии для ITC Dashboard: heartbeat, CPU/RAM, RPS, latency и инциденты."
+      content="itc-statistics-scrapper — SDK телеметрии для ITC Dashboard. Подключение в HTML, React, Vue, Angular, Svelte, Nuxt и Next.js."
     />
     <meta name="theme-color" content="#151718" />
     <title>itc-statistics-scrapper · ИТС</title>
@@ -32,12 +32,13 @@
       <header class="wrap nav">
         <a class="nav__brand" href="#top">
           <span class="nav__name">itc-statistics-scrapper</span>
-          <span class="nav__tag">ITC · Node.js SDK</span>
+          <span class="nav__tag">ITC · Telemetry SDK</span>
         </a>
 
         <div class="nav__links">
           <a class="nav__link" href="#purpose">Для чего</a>
           <a class="nav__link" href="#metrics">Метрики</a>
+          <a class="nav__link" href="#guides">Стеки</a>
           <a class="nav__link" href="#install">Установка</a>
           <a
             class="nav__link"
@@ -214,18 +215,171 @@
           </div>
         </section>
 
+        <section class="wrap section" id="guides" aria-labelledby="guides-title">
+          <div class="section__head">
+            <h2 class="section__title" id="guides-title">Интеграции</h2>
+            <span class="section__rule" aria-hidden="true"></span>
+          </div>
+          <p class="section__intro">
+            Один API для HTML, React, Vue, Angular, Svelte, Nuxt и Next.js.
+            Полные примеры — в
+            <a
+              href="https://github.com/Frontend-Sisyphus/ITC-Statistics-Scrapper#подключение-по-стекам"
+              target="_blank"
+              rel="noreferrer"
+              >README на GitHub</a
+            >.
+          </p>
+
+          <div class="guides" data-guides>
+            <div class="tabs" role="tablist" aria-label="Стек">
+              <button class="tabs__item is-active" type="button" role="tab" aria-selected="true" data-tab="html">HTML</button>
+              <button class="tabs__item" type="button" role="tab" aria-selected="false" data-tab="react">React</button>
+              <button class="tabs__item" type="button" role="tab" aria-selected="false" data-tab="vue">Vue</button>
+              <button class="tabs__item" type="button" role="tab" aria-selected="false" data-tab="angular">Angular</button>
+              <button class="tabs__item" type="button" role="tab" aria-selected="false" data-tab="svelte">Svelte</button>
+              <button class="tabs__item" type="button" role="tab" aria-selected="false" data-tab="nuxt">Nuxt</button>
+              <button class="tabs__item" type="button" role="tab" aria-selected="false" data-tab="next">Next.js</button>
+            </div>
+
+            <div class="code" data-panel="html">
+              <div class="code__bar">
+                <span class="code__label">vanilla html · cdn</span>
+                <button class="copy-btn" type="button" data-copy>Копировать</button>
+              </div>
+              <pre><code><span class="tok-cmt">&lt;!-- перед &lt;/body&gt; --&gt;</span>
+&lt;script src=<span class="tok-str">"https://unpkg.com/itc-statistics-scrapper/browser.js"</span>&gt;&lt;/script&gt;
+&lt;script&gt;
+  ItcStatistics.initItcStatistics({
+    projectId: <span class="tok-str">'my-site'</span>,
+    dashboardUrl: <span class="tok-str">'http://localhost:3000'</span>,
+  });
+&lt;/script&gt;</code></pre>
+            </div>
+
+            <div class="code is-hidden" data-panel="react" hidden>
+              <div class="code__bar">
+                <span class="code__label">react · main.jsx</span>
+                <button class="copy-btn" type="button" data-copy>Копировать</button>
+              </div>
+              <pre><code><span class="tok-cmt">// npm i itc-statistics-scrapper</span>
+<span class="tok-key">import</span> { initItcStatistics } <span class="tok-key">from</span> <span class="tok-str">'itc-statistics-scrapper/browser'</span>;
+
+<span class="tok-fn">initItcStatistics</span>({
+  projectId: <span class="tok-str">'my-react-app'</span>,
+  dashboardUrl: <span class="tok-str">'http://localhost:3000'</span>,
+});</code></pre>
+            </div>
+
+            <div class="code is-hidden" data-panel="vue" hidden>
+              <div class="code__bar">
+                <span class="code__label">vue 3 · main.js</span>
+                <button class="copy-btn" type="button" data-copy>Копировать</button>
+              </div>
+              <pre><code><span class="tok-key">import</span> { createApp } <span class="tok-key">from</span> <span class="tok-str">'vue'</span>;
+<span class="tok-key">import</span> { initItcStatistics } <span class="tok-key">from</span> <span class="tok-str">'itc-statistics-scrapper/browser'</span>;
+<span class="tok-key">import</span> App <span class="tok-key">from</span> <span class="tok-str">'./App.vue'</span>;
+
+<span class="tok-key">const</span> stats = <span class="tok-fn">initItcStatistics</span>({
+  projectId: <span class="tok-str">'my-vue-app'</span>,
+  dashboardUrl: <span class="tok-str">'http://localhost:3000'</span>,
+});
+
+<span class="tok-key">const</span> app = <span class="tok-fn">createApp</span>(App);
+app.config.globalProperties.$itc = stats;
+app.<span class="tok-fn">mount</span>(<span class="tok-str">'#app'</span>);</code></pre>
+            </div>
+
+            <div class="code is-hidden" data-panel="angular" hidden>
+              <div class="code__bar">
+                <span class="code__label">angular · service</span>
+                <button class="copy-btn" type="button" data-copy>Копировать</button>
+              </div>
+              <pre><code><span class="tok-cmt">// itc-statistics.service.ts</span>
+<span class="tok-key">import</span> { Injectable } <span class="tok-key">from</span> <span class="tok-str">'@angular/core'</span>;
+<span class="tok-key">import</span> { initItcStatistics } <span class="tok-key">from</span> <span class="tok-str">'itc-statistics-scrapper/browser'</span>;
+
+@Injectable({ providedIn: <span class="tok-str">'root'</span> })
+<span class="tok-key">export class</span> ItcStatisticsService {
+  <span class="tok-key">readonly</span> client = <span class="tok-fn">initItcStatistics</span>({
+    projectId: <span class="tok-str">'my-angular-app'</span>,
+    dashboardUrl: <span class="tok-str">'http://localhost:3000'</span>,
+  });
+}</code></pre>
+            </div>
+
+            <div class="code is-hidden" data-panel="svelte" hidden>
+              <div class="code__bar">
+                <span class="code__label">svelte · +layout.svelte</span>
+                <button class="copy-btn" type="button" data-copy>Копировать</button>
+              </div>
+              <pre><code>&lt;script&gt;
+  <span class="tok-key">import</span> { onMount } <span class="tok-key">from</span> <span class="tok-str">'svelte'</span>;
+  <span class="tok-key">import</span> { initItcStatistics } <span class="tok-key">from</span> <span class="tok-str">'itc-statistics-scrapper/browser'</span>;
+
+  <span class="tok-fn">onMount</span>(() =&gt; {
+    <span class="tok-fn">initItcStatistics</span>({
+      projectId: <span class="tok-str">'my-svelte-app'</span>,
+      dashboardUrl: <span class="tok-str">'http://localhost:3000'</span>,
+    });
+  });
+&lt;/script&gt;
+
+&lt;slot /&gt;</code></pre>
+            </div>
+
+            <div class="code is-hidden" data-panel="nuxt" hidden>
+              <div class="code__bar">
+                <span class="code__label">nuxt · plugin.client.js</span>
+                <button class="copy-btn" type="button" data-copy>Копировать</button>
+              </div>
+              <pre><code><span class="tok-cmt">// plugins/itc-statistics.client.js</span>
+<span class="tok-key">import</span> { initItcStatistics } <span class="tok-key">from</span> <span class="tok-str">'itc-statistics-scrapper/browser'</span>;
+
+<span class="tok-key">export default</span> <span class="tok-fn">defineNuxtPlugin</span>(() =&gt; {
+  <span class="tok-key">const</span> client = <span class="tok-fn">initItcStatistics</span>({
+    projectId: <span class="tok-str">'my-nuxt-app'</span>,
+    dashboardUrl: <span class="tok-str">'http://localhost:3000'</span>,
+  });
+  <span class="tok-key">return</span> { provide: { itc: client } };
+});</code></pre>
+            </div>
+
+            <div class="code is-hidden" data-panel="next" hidden>
+              <div class="code__bar">
+                <span class="code__label">next.js · providers.tsx</span>
+                <button class="copy-btn" type="button" data-copy>Копировать</button>
+              </div>
+              <pre><code><span class="tok-cmt">// app/providers.tsx</span>
+<span class="tok-str">'use client'</span>;
+<span class="tok-key">import</span> { useEffect } <span class="tok-key">from</span> <span class="tok-str">'react'</span>;
+<span class="tok-key">import</span> { initItcStatistics } <span class="tok-key">from</span> <span class="tok-str">'itc-statistics-scrapper/browser'</span>;
+
+<span class="tok-key">export function</span> <span class="tok-fn">ItcProviders</span>({ children }) {
+  <span class="tok-fn">useEffect</span>(() =&gt; {
+    <span class="tok-fn">initItcStatistics</span>({
+      projectId: <span class="tok-str">'my-next-app'</span>,
+      dashboardUrl: <span class="tok-str">'http://localhost:3000'</span>,
+    });
+  }, []);
+  <span class="tok-key">return</span> children;
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
         <section class="wrap section" id="install" aria-labelledby="install-title">
           <div class="section__head">
-            <h2 class="section__title" id="install-title">Быстрый старт</h2>
+            <h2 class="section__title" id="install-title">Установка</h2>
             <span class="section__rule" aria-hidden="true"></span>
           </div>
           <div class="install">
             <div class="install__copy">
-              <h2>Вставьте скрипт и сайт сразу начнет мониториться</h2>
+              <h2>npm или CDN</h2>
               <p>
-                Для любого HTML-сайта достаточно CDN. Для Express / Next.js —
-                npm и middleware. Передайте <code>projectId</code> и адрес
-                ITC Dashboard.
+                Для фреймворков: <code>npm install itc-statistics-scrapper</code>
+                и импорт из <code>itc-statistics-scrapper/browser</code>.
+                Для статики — скрипт с unpkg.
               </p>
               <p>
                 В браузере дашборд должен разрешать CORS на
@@ -242,19 +396,12 @@
 
             <div class="code" data-copy-root>
               <div class="code__bar">
-                <span class="code__label">browser · cdn</span>
+                <span class="code__label">npm</span>
                 <button class="copy-btn" type="button" data-copy>
                   Копировать
                 </button>
               </div>
-              <pre><code id="installSnippet"><span class="tok-cmt">&lt;!-- любой сайт --&gt;</span>
-&lt;script src=<span class="tok-str">"https://unpkg.com/itc-statistics-scrapper/browser.js"</span>&gt;&lt;/script&gt;
-&lt;script&gt;
-  ItcStatistics.initItcStatistics({
-    projectId: <span class="tok-str">'my-site'</span>,
-    dashboardUrl: <span class="tok-str">'http://localhost:3000'</span>,
-  });
-&lt;/script&gt;</code></pre>
+              <pre><code>npm install itc-statistics-scrapper</code></pre>
             </div>
           </div>
         </section>
@@ -295,11 +442,12 @@
           });
         }
 
-        var btn = document.querySelector("[data-copy]");
-        var snippet = document.getElementById("installSnippet");
-        if (btn && snippet) {
+        function bindCopy(btn) {
           btn.addEventListener("click", async function () {
-            var text = snippet.innerText.replace(/\u00a0/g, " ");
+            var panel = btn.closest(".code");
+            var code = panel && panel.querySelector("code");
+            if (!code) return;
+            var text = code.innerText.replace(/\u00a0/g, " ");
             try {
               await navigator.clipboard.writeText(text);
               btn.textContent = "Скопировано";
@@ -311,6 +459,29 @@
             } catch (e) {
               btn.textContent = "Не удалось";
             }
+          });
+        }
+
+        document.querySelectorAll("[data-copy]").forEach(bindCopy);
+
+        var guides = document.querySelector("[data-guides]");
+        if (guides) {
+          var tabs = guides.querySelectorAll("[data-tab]");
+          var panels = guides.querySelectorAll("[data-panel]");
+          tabs.forEach(function (tab) {
+            tab.addEventListener("click", function () {
+              var id = tab.getAttribute("data-tab");
+              tabs.forEach(function (t) {
+                var on = t === tab;
+                t.classList.toggle("is-active", on);
+                t.setAttribute("aria-selected", on ? "true" : "false");
+              });
+              panels.forEach(function (panel) {
+                var on = panel.getAttribute("data-panel") === id;
+                panel.hidden = !on;
+                panel.classList.toggle("is-hidden", !on);
+              });
+            });
           });
         }
       })();
