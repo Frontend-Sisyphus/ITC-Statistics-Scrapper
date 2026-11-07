@@ -2,36 +2,6 @@
 
 Лёгкий SDK телеметрии для **ITC Dashboard**: работает на **Node.js** и в **браузере на любом сайте**.
 
-Лендинг: [`docs/index.html`](./docs/index.html) (`npm run docs`).
-
-## Деплой лендинга на Vercel
-
-Репозиторий уже настроен: `vercel.json` отдаёт папку `docs` как статический сайт.
-
-### Вариант A — через сайт Vercel
-
-1. Запушьте репозиторий на GitHub.
-2. Откройте [vercel.com/new](https://vercel.com/new) → Import проекта.
-3. Framework Preset: **Other**.
-4. Оставьте настройки из `vercel.json` (Output Directory = `docs`).
-5. Deploy.
-
-### Вариант B — через CLI
-
-```bash
-npm i -g vercel
-# или без глобальной установки:
-npm run deploy:docs
-```
-
-Первый раз CLI спросит логин и привязку проекта. После деплоя получите URL вида `https://….vercel.app`.
-
-Локальная проверка прод-сборки:
-
-```bash
-npx vercel
-```
-
 ## Установка
 
 ```bash
